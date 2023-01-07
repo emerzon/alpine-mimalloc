@@ -4,7 +4,7 @@ RUN cd /; git clone --depth 1 https://github.com/microsoft/mimalloc; cd mimalloc
 
 FROM alpine
 COPY --from=builder /mimalloc/build/*.so.* /lib/
-RUN ln -s /lib/libmimalloc.so.* /lib/libmimalloc.so
+RUN ln -s /lib/libmimalloc.so.* /lib/libmimalloc.so || echo "Link not needed"
 ENV LD_PRELOAD=/lib/libmimalloc.so
 ENV MIMALLOC_LARGE_OS_PAGES=1
 
